@@ -31,8 +31,6 @@ export const branchRelation = relations(branches, ({one}) => ({
 export const levels = pgTable("levels", {
     id: serial("id").primaryKey(),
     title: text("title").notNull(),
-    heading: text("heading").notNull(),
-    subHeading: text("sub_heading").notNull(),
     route: text("route").notNull(),
     branchId: integer("branchId").references(() => branches.id, {onDelete: "cascade"}).notNull()
 })
