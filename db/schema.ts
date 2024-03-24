@@ -41,3 +41,11 @@ export const levelRelation = relations(levels, ({one}) => ({
     references: [branches.id]
   })
 }))
+
+export const levelContent = pgTable("levelContent", {
+  id: serial("id").notNull(),
+  heading: text("heading").notNull(),
+  subHeading: text("sub_heading").notNull(),
+  branch: text("branch").notNull(),
+  level: text("level").notNull()
+})

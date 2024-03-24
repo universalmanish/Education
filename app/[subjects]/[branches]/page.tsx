@@ -8,7 +8,6 @@ import { usePathname, useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 
 type Props = {
-  children: React.ReactNode,
   Data: typeof levels.$inferSelect[]
 }
 

@@ -1,6 +1,6 @@
-import { eq } from "drizzle-orm";
+import { and, eq } from "drizzle-orm";
 import db from "./drizzle";
-import { branches, levels, subjects } from "./schema";
+import { branches, levelContent, levels, subjects } from "./schema";
 
 export const getSubjects = async () => {
   const data = await db.query.subjects.findMany();
@@ -100,3 +100,14 @@ export const getDynamicLevels = async (count: number, routeItem: string[]) => {
       return dataDefault;
   }
 };
+
+export const getLevelContent = async (routeItem:string[]) => {
+  const data = await db.query.levelContent.findFirst({
+    where: and(
+      eq(levelContent.level, routeItem[routeItem.length - 1]),
+      eq(levelContent.branch, routeItem[routeItem.length - 2])
+    )
+  })
+   return [data]
+
+}
