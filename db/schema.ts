@@ -41,7 +41,6 @@ export const LevelRelation = relations(levels, ({one, many}) => ({
         references: [branch.id]
     }),
     heading: many(heading),
-    subHeading: many(subHeading),
 }))
 
 
@@ -51,23 +50,24 @@ export const heading = pgTable("heading", {
     levelId: integer("level_id").references(() => levels.id, {onDelete: "cascade"})
 })
 
-export const headingRelation = relations(heading, ({one}) => ({
+export const headingRelation = relations(heading, ({one, many}) => ({
     level: one(levels, {
         fields: [heading.levelId],
         references: [levels.id]
-    })
+    }),
+    subHeading: many(subHeading)
 }))
 
 
 export const subHeading = pgTable("subHeading", {
     id: serial("id").primaryKey(),
     title: text("subHeading"),
-    levelId: integer("level_id").references(() => levels.id, {onDelete: "cascade"})
+    headingId: integer("heading_id").references(() => heading.id, {onDelete: "cascade"})
 })
 
 export const subHeadingRelation = relations(subHeading, ({one}) => ({
-    level: one(levels, {
-        fields: [subHeading.levelId],
-        references: [levels.id]
+    heading: one(heading, {
+        fields: [subHeading.headingId],
+        references: [heading.id]
     })
 }))

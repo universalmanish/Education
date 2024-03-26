@@ -98,13 +98,14 @@ export const levelData = async (routeItem: string[]) => {
         if (dataLevels) {
            const temp = dataLevels.id
            const headings = await db.query.heading.findMany({
-            where: eq(heading.levelId, temp)
+            where: eq(heading.levelId, temp),
+            with: {subHeading: true}
            })
-           const subHeadings = await db.query.subHeading.findMany({
-            where: eq(subHeading.levelId, temp)
-           })
+          //  const subHeadings = await db.query.subHeading.findMany({
+          //   where: eq(subHeading.levelId, temp)
+          //  })
 
-           return {headings, subHeadings}
+           return headings
         }
 
     
