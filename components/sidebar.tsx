@@ -9,7 +9,6 @@ type Props = {
         id: number;
         title: string;
         route: string;
-        imageUrl: string
       }[];
 }
 

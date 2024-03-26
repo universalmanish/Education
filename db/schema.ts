@@ -1,51 +1,73 @@
 import { relations } from "drizzle-orm";
-import { serial, text, pgTable, integer, } from "drizzle-orm/pg-core";
+import { pgTable, text, serial, integer } from "drizzle-orm/pg-core";
 
-export const subjects = pgTable("subjects", {
-  id: serial("id").primaryKey(),
-  title: text("title").notNull(),
-  route: text("route").notNull(),
-  imageUrl: text("image_url").notNull()
-});
-
-export const subjectsRelation = relations(subjects, ({ one }) => ({
-  subjectBranch: one(branches),
-}));
-
-export const branches = pgTable("branches", {
-    id: serial("id").primaryKey(),
+export const subject = pgTable("subject", {
+    id: serial("id").primaryKey().notNull(),
     title: text("title").notNull(),
     route: text("route").notNull(),
-    imageUrl: text("image_url").notNull(),
-    subjectId: integer("subjectsId").references(() => subjects.id, {onDelete: "cascade"}).notNull()
+    imageUrl: text("image_url")
 })
 
+export const subjectRelation = relations(subject, ({many}) => ({
+   branch: many(branch)
+}))
 
-export const branchRelation = relations(branches, ({one}) => ({
-    subject: one(subjects, {
-      fields: [branches.subjectId],
-      references: [subjects.id]
-    })
+export const branch = pgTable("branch", {
+    id: serial("id").primaryKey(),
+    title: text("title"),
+    route: text("route"),
+    imageUrl: text("image_url"),
+    subjectId: integer("subject_id").references(() => subject.id, {onDelete: "cascade"})
+})
+
+export const branchRelation = relations(branch, ({one, many}) => ({
+    subject: one(subject, {
+        fields: [branch.subjectId],
+        references: [subject.id]
+    }),
+    level: many(levels)
 }))
 
 export const levels = pgTable("levels", {
     id: serial("id").primaryKey(),
-    title: text("title").notNull(),
-    route: text("route").notNull(),
-    branchId: integer("branchId").references(() => branches.id, {onDelete: "cascade"}).notNull()
+    title: text("title"),
+    route: text("route"),
+    branchId: integer("branch_id").references(() => branch.id, {onDelete: "cascade"})
 })
 
-export const levelRelation = relations(levels, ({one}) => ({
-  branch: one(branches, {
-    fields: [levels.branchId],
-    references: [branches.id]
-  })
+export const LevelRelation = relations(levels, ({one, many}) => ({
+    branch: one(branch, {
+        fields: [levels.branchId],
+        references: [branch.id]
+    }),
+    heading: many(heading),
+    subHeading: many(subHeading),
 }))
 
-export const levelContent = pgTable("levelContent", {
-  id: serial("id").notNull(),
-  heading: text("heading").notNull(),
-  subHeading: text("sub_heading").notNull(),
-  branch: text("branch").notNull(),
-  level: text("level").notNull()
+
+export const heading = pgTable("heading", {
+    id: serial("id").primaryKey(),
+    title: text("heading"),
+    levelId: integer("level_id").references(() => levels.id, {onDelete: "cascade"})
 })
+
+export const headingRelation = relations(heading, ({one}) => ({
+    level: one(levels, {
+        fields: [heading.levelId],
+        references: [levels.id]
+    })
+}))
+
+
+export const subHeading = pgTable("subHeading", {
+    id: serial("id").primaryKey(),
+    title: text("subHeading"),
+    levelId: integer("level_id").references(() => levels.id, {onDelete: "cascade"})
+})
+
+export const subHeadingRelation = relations(subHeading, ({one}) => ({
+    level: one(levels, {
+        fields: [subHeading.levelId],
+        references: [levels.id]
+    })
+}))

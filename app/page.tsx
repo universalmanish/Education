@@ -1,13 +1,13 @@
 "use client"
 import { Card } from "@/components/ui/card";
 import { getSubjects } from "@/db/queries";
-import { subjects } from "@/db/schema";
+import { subject } from "@/db/schema";
 import Image from "next/image";
 import Link from "next/link";
 import { useEffect, useState } from "react";
 
 type Props = {
-  Data: typeof subjects.$inferSelect[]
+  Data: typeof subject.$inferSelect[]
 }
 const MainPage = ({Data}:Props) => {
   const [data, setData] = useState<typeof Data>([])

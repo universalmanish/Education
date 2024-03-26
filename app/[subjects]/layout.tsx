@@ -1,20 +1,24 @@
 "use client"
-import { MobileHeader } from "@/components/mobile-header"
+// import { MobileHeader } from "@/components/mobile-header"
 import { Sidebar } from "@/components/sidebar"
-import { getDynamicSubjects } from "@/db/queries"
-import { branches } from "@/db/schema"
+import { sidebarDynamicData } from "@/db/queries"
+import { branch } from "@/db/schema"
 import { countSlashes, lastItem, routeItem} from "@/lib/route-finder"
 import { usePathname } from "next/navigation"
 import { useEffect, useState } from "react"
 
 type Props = {
   children: React.ReactNode,
-  Data: typeof branches.$inferSelect[]
+  data: {
+    id: number,
+    title: string,
+    route: string,
+  }[]
 }
 
 
-const StartPageLayout = ({children, Data }: Props) => {
-  const [data, setData] = useState<typeof Data>([])
+const StartPageLayout = ({children, data }: Props) => {
+  const [newData, setNewData] = useState<typeof data>([])
   const pathName = usePathname()
   const countSlash = countSlashes(pathName)
   const routeItems = routeItem(pathName)
@@ -22,13 +26,13 @@ const StartPageLayout = ({children, Data }: Props) => {
   
   
   useEffect(() => {
-    getDynamicSubjects(countSlash, routeItems)
-    .then(result => setData(result))
+    sidebarDynamicData(countSlash, routeItems)
+    .then((result: any) => setNewData(result))
   },[countSlash, routeItems])
   return (
     <>
-      <MobileHeader />
-      <Sidebar data={data} href={lastItm}/>
+      {/* <MobileHeader /> */}
+      <Sidebar data={newData} href={lastItm}/>
       <main className="lg:pl-[256px] h-full w-full lg:pt-0 pt-[20px]">
         <div className="lg:pl-[50px] sm:pl-[30px] pt-8 h-full w-full pr-8">
           {children}
