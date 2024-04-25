@@ -34,7 +34,7 @@ const StartPageLayout = ({ children, data }: Props) => {
     <>
       <Navbar />
       <Sidebar data={newData} href={lastItm} />
-      <main className="lg:pl-[256px] h-full w-full pt-[35px]">
+      <main className="lg:pl-[256px] h-full w-full pt-[60px]">
         <div className="lg:pl-[50px] sm:pl-[30px] pt-8 h-full w-full pr-8">
           {children}
         </div>
