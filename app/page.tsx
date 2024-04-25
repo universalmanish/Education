@@ -22,7 +22,7 @@ const MainPage = ({Data}:Props) => {
       <div className="grid lg:grid-cols-3 sm:grid-cols-1 md:grid-cols-2 gap-8 pb-8">
         {data.map(i => (
           <Link href={i.route} key={i.id}>
-           <Card className="aspect-square flex-col gap-y-4 bg-gradient-to-r from-purple-500 to-green-400 flex items-center justify-center font-bold text-4xl rounded-2xl">
+           <Card className="flex flex-col bg-white dark:bg-black font-bold text-4xl items-center justify-center gap-y-3 rounded-xl pb-7 pt-5 border-2 shadow-lg">
             <Image 
               src="/mathematics/chemistry.png"
               alt="image"

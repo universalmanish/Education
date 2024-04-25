@@ -34,9 +34,9 @@ const LevelPage = ({ data }: Props) => {
   }
   return (
     <div className="pl-10">
-      <div className="grid lg:grid-cols-3 md:grid-cols-2 sm:grid-cols-1 gap-9">
+      <div className="grid lg:grid-cols-3 md:grid-cols-2 grid-cols-2 gap-9">
         {newData.map(i => (
-          <Card key={i.id} onClick={() => onClick(i.route)} className="aspect-square flex flex-col items-center justify-center font-bold text-3xl bg-gradient-to-r from-amber-300 to-pink-500 rounded-3xl gap-y-6">
+          <Card key={i.id} onClick={() => onClick(i.route)} className="aspect-square flex flex-col items-center justify-center font-bold text-3xl bg-white shadow-lg rounded-3xl gap-y-6">
             <Star className="h-[50px] w-[50px]"/>
             {i.title}
           </Card>

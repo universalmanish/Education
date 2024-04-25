@@ -23,7 +23,7 @@ export const SidebarItem = ({data, href}: Props) => {
       <div className="pt-5 flex flex-col gap-y-3">
         {data.map(sub => (
           <Link key={sub.id} href={sub.route}>
-            <Card className={cn("rounded text-xl font-bold hover:bg-slate-300  flex items-center justify-start pl-7 h-20", href === sub.route ? "bg-slate-300" : "bg-white")}>
+            <Card className={cn("rounded text-xl font-bold hover:bg-slate-300  flex items-center justify-start pl-7 h-20", href === sub.route ? "bg-slate-300" : "bg-white dark:bg-black")}>
               {sub.title}
             </Card>
           </Link>
