@@ -31,15 +31,15 @@ const StartPageLayout = ({ children, data }: Props) => {
       .then((result: any) => setNewData(result))
   }, [countSlash, routeItems])
   return (
-    <>
-      <Navbar />
+    <div className="h-full">
       <Sidebar data={newData} href={lastItm} />
-      <main className="lg:pl-[256px] h-full w-full pt-[60px]">
-        <div className="lg:pl-[50px] sm:pl-[30px] pt-8 h-full w-full pr-8">
+      <main className="lg:pl-[298px] lg:dark:pl-[300px] h-full pt-[60px]">
+        <Navbar className="w-full lg:w-[1071px] mx-auto"/>
+        <div className="p-8">
           {children}
         </div>
       </main>
-    </>
+    </div>
   )
 }
 

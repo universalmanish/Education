@@ -34,11 +34,11 @@ const BranchPage = ({data}: Props) => {
   }
 
   return (
-    <div className="pl-10 pb-8">
+    <div className="h-full">
       <div className="grid lg:grid-cols-3 md:grid-cols-2 grid-cols-2 gap-9">
         {newData.map(i => (
-          <Card key={i.id} onClick={() => onClick(i.route)} className="aspect-square flex items-center justify-center font-bold text-3xl bg-white dark:bg-black border-2 shadow-lg rounded-3xl">
-            {i.title}
+          <Card key={i.id} onClick={() => onClick(i.route)} className="aspect-square flex  bg-white dark:bg-black border-2 shadow-lg rounded-3xl">
+            <p className="flex flex-col items-center justify-center p-10 sm:text-2xl md:text-2xl lg:text-2.5xl xl:text-3xl font-bold">{i.title}</p>
           </Card>
         ))}
       </div>

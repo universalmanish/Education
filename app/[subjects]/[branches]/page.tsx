@@ -33,11 +33,11 @@ const LevelPage = ({ data }: Props) => {
     router.push(`${pathName}/${route}`)
   }
   return (
-    <div className="pl-10">
+    <div className="p-2">
       <div className="grid lg:grid-cols-3 md:grid-cols-2 grid-cols-2 gap-9">
         {newData.map(i => (
-          <Card key={i.id} onClick={() => onClick(i.route)} className="aspect-square flex flex-col items-center justify-center font-bold text-3xl bg-white dark:bg-black shadow-lg rounded-3xl gap-y-6">
-            <Star className="h-[50px] w-[50px]"/>
+          <Card key={i.id} onClick={() => onClick(i.route)} className="aspect-square flex flex-col items-center justify-center font-bold sm:text-xl lg:text-3xl md:text-2xl bg-white dark:bg-black shadow-lg rounded-3xl gap-y-6">
+            <Star className="lg:h-[50px] lg:w-[50px] md:h-[30px] md:w-[30px]"/>
             {i.title}
           </Card>
         ))}

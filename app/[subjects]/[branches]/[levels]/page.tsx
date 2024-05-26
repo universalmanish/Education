@@ -37,7 +37,7 @@ const LevelContent = () => {
   }, [item]);
 
   return (
-    <div className="pl-8 grid lg:grid-cols-2 sm:grid-cols-1 gap-7">
+    <div className="pl-8 grid lg:grid-cols-2 md:grid-cols-2 sm:grid-cols-1 gap-7">
        {newData.map((heading) => (
           <Card key={heading.id} className="p-4 rounded-xl">
             <h1 className="text-2xl font-bold">{heading.title}</h1>

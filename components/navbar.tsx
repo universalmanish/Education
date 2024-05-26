@@ -1,11 +1,12 @@
-import { Search } from "lucide-react";
+import { cn } from "@/lib/utils";
 import { DarkMode } from "./dark-mode";
-import { Input } from "./ui/input";
 import { SearchInput } from "./search-input";
+import { Menu } from "lucide-react";
 
-export const Navbar = () => {
+export const Navbar = ({className = ''}) => {
     return (
-        <nav className="lg:ml-[298px] fixed w-full lg:w-[1051px] bg-white dark:bg-black top-0 h-[70px] shadow-sm rounded-lg border-2 flex items-center space-x-30 pr-2 justify-between pl-5 max-w-screen gap-x-5">
+        <nav className={cn("fixed bg-white dark:bg-black dark:border-none top-0 h-[70px] shadow-sm rounded-lg border-2 flex items-center space-x-30 pr-2 justify-between pl-5 max-w-screen gap-x-5 mx-auto", className)}>
+            <Menu className="lg:hidden flex h-8 w-8 text-muted-forground"/>
             <SearchInput />
             <DarkMode />
         </nav>

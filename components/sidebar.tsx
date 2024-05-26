@@ -14,7 +14,7 @@ type Props = {
 
 export const Sidebar = ({ className, data, href }: Props) => {
     return (
-        <div className={cn("flex-col h-full lg:fixed lg:w-[300px] left-0 top-0 border-r-2 hidden lg:flex", className)}>
+        <div className={cn("flex-col flex-1 h-full lg:fixed lg:w-[300px] left-0 top-0 border-r-2 hidden lg:flex", className)}>
             <div className="pt-6">
                 <SidebarItem data={data} href={href}/>
             </div>
