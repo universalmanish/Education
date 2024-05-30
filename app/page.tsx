@@ -44,7 +44,7 @@ const MainPage = ({ Data }: Props) => {
   return (
     <>
       <Navbar query={query} onChange={handleInputChange} className="w-full" />
-      <div className="h-full w-full p-8">
+      <div className="h-full w-full p-10">
         <List pathName="" data={data} />
       </div>
     </>

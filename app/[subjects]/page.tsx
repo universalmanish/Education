@@ -46,8 +46,8 @@ const BranchPage = ({data}: Props) => {
 
 
   return (
-    <div className="h-full pl-7">
-      <div className="grid lg:grid-cols-3 md:grid-cols-2 grid-cols-2 gap-9">
+    <div className="h-full">
+      <div className="grid lg:grid-cols-3 md:grid-cols-2 sm:grid-cols-1 gap-9">
         <List pathName={pathName} data={newData}/>
       </div>
     </div>

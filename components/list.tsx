@@ -1,10 +1,12 @@
 "use client"
 
+import { Star } from "lucide-react";
 import { Card } from "./ui/card"
 import {  useRouter } from "next/navigation";
 
 type Props = {
     pathName: string,
+    star?: boolean,
     data: {
         id: number,
         title: string,
@@ -13,21 +15,22 @@ type Props = {
     }[]
 }
 
-export const List = ({ data, pathName }: Props) => {
+export const List = ({ data, pathName, star }: Props) => {
     const router = useRouter()
     const onClick = (route: string) => {
         router.push(`${pathName}/${route}`)
     }
 
     return (
-        <div className="h-full w-full pt-2 p-4">
-            <div className="grid lg:grid-cols-4 sm:grid-cols-1 md:grid-cols-2 gap-8 pb-8">
+        <div className="h-full w-full">
+            <div className="grid items-center justify-center lg:grid-cols-4 sm:grid-cols-1 md:grid-cols-2 gap-8 pb-8">
                 {data.map(i => (
                     <Card
-                        className="w-64 h-64 bg-white dark:bg-black shadow-lg rounded-xl overflow-hidden p-8  flex items-center justify-center"
+                        className="w-64 h-64 bg-white dark:bg-black shadow-lg rounded-xl overflow-hidden p-8 flex flex-col gap-y-5 items-center justify-center"
                         key={i.id}
                         onClick={() => onClick(i.route)}
                     >
+                        {star && (<Star className="h-10 w-10"/>)}
                         <p className="dark:text-white text-center font-bold text-2xl">{i.title}</p>
                     </Card>
                 ))}

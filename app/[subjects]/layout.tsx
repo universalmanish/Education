@@ -42,7 +42,7 @@ const StartPageLayout = ({ children, data }: Props) => {
         <Sidebar data={newData} href={lastItm} />
         <main className="lg:pl-[298px] lg:dark:pl-[300px] h-full pt-0">
           <Navbar query={query} onChange={handleInputChange} className="w-full lg:w-[1071px] mx-auto" />
-          <div className="p-8">
+          <div className="p-10">
             {children}
           </div>
         </main>
