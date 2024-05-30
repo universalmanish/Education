@@ -1,8 +1,10 @@
 "use client"
+import { List } from "@/components/list";
 import { Card } from "@/components/ui/card";
 import { pageDynamicData } from "@/db/queries";
 import { branch } from "@/db/schema";
 import { countSlashes, routeItem } from "@/lib/route-finder";
+import { useQuery } from "@/store/useQuery";
 import { usePathname, useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 
@@ -18,29 +20,35 @@ type Props = {
 
 const BranchPage = ({data}: Props) => {
   const [newData, setNewData] = useState<typeof data>([])
-  const router = useRouter()
+  const {query, setQuery} = useQuery()
   const pathName = usePathname()
   const countSlash = countSlashes(pathName)
   const routeItems = routeItem(pathName)
 
-
   useEffect(() => {
-    pageDynamicData(countSlash, routeItems)
+    if (query.length == 0) {
+      pageDynamicData(countSlash, routeItems)
       .then((result: any) => setNewData(result))
-  }, [countSlash, routeItems])
+    } else {
+      fetch(`/api/2?q=${query}`)
+        .then(response => {
+          if (!response.ok) {
+            throw new Error('Network response was not ok');
+          }
+          return response.json();
+        })
+        .then(data => {
+          setNewData(data);
 
-  const onClick = (route: string) => {
-    router.push(`${pathName}/${route}`)
-  }
+        })
+    }
+  }, [query, data, countSlash, routeItems]);
+
 
   return (
-    <div className="h-full">
+    <div className="h-full pl-7">
       <div className="grid lg:grid-cols-3 md:grid-cols-2 grid-cols-2 gap-9">
-        {newData.map(i => (
-          <Card key={i.id} onClick={() => onClick(i.route)} className="aspect-square flex  bg-white dark:bg-black border-2 shadow-lg rounded-3xl">
-            <p className="flex flex-col items-center justify-center p-10 sm:text-2xl md:text-2xl lg:text-2.5xl xl:text-3xl font-bold">{i.title}</p>
-          </Card>
-        ))}
+        <List pathName={pathName} data={newData}/>
       </div>
     </div>
   );

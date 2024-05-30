@@ -1,45 +1,56 @@
 "use client"
+import React, { useState, useEffect } from 'react';
 import { Navbar } from "@/components/navbar";
-import { Card } from "@/components/ui/card";
-import { getSubjects } from "@/db/queries";
-import { subject } from "@/db/schema";
-import Image from "next/image";
-import Link from "next/link";
-import { useEffect, useState } from "react";
+import { List } from "@/components/list";
+import { subject } from '@/db/schema';
+import { countSlashes } from '@/lib/route-finder';
+import { usePathname } from 'next/navigation';
+import { getSubjects } from '@/db/queries';
+
 
 type Props = {
   Data: typeof subject.$inferSelect[]
 }
+
 const MainPage = ({ Data }: Props) => {
   const [data, setData] = useState<typeof Data>([])
+  const [query, setQuery] = useState("");
+  const pathName = usePathname()
+  const slash = countSlashes(pathName)
 
   useEffect(() => {
-    getSubjects()
-      .then(result => setData(result))
-  }, [])
+    if (query.length == 0) {
+       getSubjects()
+       .then((result: any) => setData(result))
+    } else {
+      fetch(`/api/${slash}?q=${query}`)
+        .then(response => {
+          if (!response.ok) {
+            throw new Error('Network response was not ok');
+          }
+          return response.json();
+        })
+        .then(data => {
+          setData(data);
+
+        })
+    }
+  }, [query, data, slash]);
+
+  const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setQuery(event.target.value);
+  };
 
   return (
     <>
-      <Navbar className="w-full"/>
-        <div className="h-full w-full pt-20 p-8 mt-3">
-          <div className="grid lg:grid-cols-3 sm:grid-cols-1 md:grid-cols-2 gap-8 pb-8">
-            {data.map(i => (
-              <Link href={i.route} key={i.id}>
-                <Card className="flex flex-col bg-white dark:bg-black font-bold text-4xl items-center justify-center gap-y-3 rounded-xl pb-7 pt-5 border-2 shadow-lg">
-                  <Image
-                    src="/mathematics/chemistry.png"
-                    alt="image"
-                    height={150}
-                    width={150}
-                  />
-                  {i.title}
-                </Card>
-              </Link>
-            ))}
-          </div>
-        </div>
+      <Navbar query={query} onChange={handleInputChange} className="w-full" />
+      <div className="h-full w-full p-8">
+        <List pathName="" data={data} />
+      </div>
     </>
   );
 };
 
 export default MainPage;
+
+
