@@ -22,12 +22,12 @@ const BranchPage = ({data}: Props) => {
   const [newData, setNewData] = useState<typeof data>([])
   const {query, setQuery} = useQuery()
   const pathName = usePathname()
-  const countSlash = countSlashes(pathName)
+  const slash = countSlashes(pathName)
   const routeItems = routeItem(pathName)
 
   useEffect(() => {
     if (query.length == 0) {
-      pageDynamicData(countSlash, routeItems)
+      pageDynamicData(slash, routeItems)
       .then((result: any) => setNewData(result))
     } else {
       fetch(`/api/2?q=${query}`)
@@ -42,7 +42,7 @@ const BranchPage = ({data}: Props) => {
 
         })
     }
-  }, [query, data, countSlash, routeItems]);
+  }, [query, data, slash, routeItems]);
 
 
   return (

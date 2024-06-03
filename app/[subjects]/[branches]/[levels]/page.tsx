@@ -6,15 +6,6 @@ import { routeItem } from "@/lib/route-finder";
 import { redirect, usePathname } from "next/navigation";
 import { useEffect, useState } from "react";
 
-// interface DataType {
-//   headings?: { id: number; title: string; }[];
-//   subHeadings?: { id: number; title: string; }[];
-// }
-
-// type DataTypes = {
-//   data: { id: number, title: string, subHeading: { id: number, title: string }[] }[]
-// }
-
 type DataItem = {
   id: number;
   title: string;
